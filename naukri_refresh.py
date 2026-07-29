@@ -58,9 +58,9 @@ def is_logged_in(page) -> bool:
 def login(page):
     log.info("Logging in...")
     page.goto("https://www.naukri.com/nlogin/login", wait_until="domcontentloaded", timeout=30000)
-    page.wait_for_selector("#Email ID / Username", timeout=15000)
-    page.fill("#Email ID / Username", NAUKRI_EMAIL)
-    page.fill("#Password", NAUKRI_PASSWORD)
+    page.wait_for_selector("Email ID / Username", timeout=15000)
+    page.fill("Email ID / Username", NAUKRI_EMAIL)
+    page.fill("Password", NAUKRI_PASSWORD)
     page.click("button[type='submit']")
 
     time.sleep(4)
