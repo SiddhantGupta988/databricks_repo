@@ -55,71 +55,71 @@ def is_logged_in(page) -> bool:
     return "login" not in page.url.lower() and "nlogin" not in page.url.lower()
 
 
-# def login(page):
-#     log.info("Logging in...")
-#     page.goto("https://www.naukri.com/nlogin/login", wait_until="domcontentloaded", timeout=30000)
-#     page.wait_for_selector("Email ID / Username", timeout=15000)
-#     page.fill("Email ID / Username", NAUKRI_EMAIL)
-#     page.fill("Password", NAUKRI_PASSWORD)
-#     page.click("button[type='submit']")
-
-#     time.sleep(4)
-#     if page.locator("text=OTP").count() > 0 or page.locator("text=verification").count() > 0:
-#         screenshot(page, "otp_prompt")
-#         raise RuntimeError("Naukri is asking for OTP/verification — unattended automation may not work.")
-
-#     page.wait_for_load_state("domcontentloaded", timeout=20000)
-#     if "login" in page.url.lower():
-#         screenshot(page, "login_failed")
-#         raise RuntimeError("Login appears to have failed — check credentials or screenshot.")
-#     log.info("Login successful.")
-
 def login(page):
     log.info("Logging in...")
     page.goto("https://www.naukri.com/nlogin/login", wait_until="domcontentloaded", timeout=30000)
+    page.wait_for_selector("usernameField", timeout=15000)
+    page.fill("usernameField", NAUKRI_EMAIL)
+    page.fill("passwordField", NAUKRI_PASSWORD)
+    page.click("button[type='submit']")
 
-    # Email field
-    email_selectors = [
-        "input[name='usernameField']",
-        "input[placeholder='Enter Email ID / Username']",
-        "input[type='text']"
-    ]
-    email_box = None
-    for sel in email_selectors:
-        loc = page.locator(sel)
-        if loc.count() > 0:
-            email_box = loc.first
-            break
-    if not email_box:
-        screenshot(page, "email_field_not_found")
-        raise RuntimeError("Could not find Email ID / Username field.")
-    email_box.fill(NAUKRI_EMAIL)
-
-    # Password field
-    password_selectors = [
-        "input[name='passwordField']",
-        "input[placeholder='Enter Password']",
-        "input[type='password']"
-    ]
-    password_box = None
-    for sel in password_selectors:
-        loc = page.locator(sel)
-        if loc.count() > 0:
-            password_box = loc.first
-            break
-    if not password_box:
-        screenshot(page, "password_field_not_found")
-        raise RuntimeError("Could not find Password field.")
-    password_box.fill(NAUKRI_PASSWORD)
-
-    # Login button
-    page.click("button[type='submit'], button:has-text('Login')")
+    time.sleep(4)
+    if page.locator("text=OTP").count() > 0 or page.locator("text=verification").count() > 0:
+        screenshot(page, "otp_prompt")
+        raise RuntimeError("Naukri is asking for OTP/verification — unattended automation may not work.")
 
     page.wait_for_load_state("domcontentloaded", timeout=20000)
     if "login" in page.url.lower():
         screenshot(page, "login_failed")
         raise RuntimeError("Login appears to have failed — check credentials or screenshot.")
     log.info("Login successful.")
+
+# def login(page):
+#     log.info("Logging in...")
+#     page.goto("https://www.naukri.com/nlogin/login", wait_until="domcontentloaded", timeout=30000)
+
+#     # Email field
+#     email_selectors = [
+#         "input[name='usernameField']",
+#         "input[placeholder='Enter Email ID / Username']",
+#         "input[type='text']"
+#     ]
+#     email_box = None
+#     for sel in email_selectors:
+#         loc = page.locator(sel)
+#         if loc.count() > 0:
+#             email_box = loc.first
+#             break
+#     if not email_box:
+#         screenshot(page, "email_field_not_found")
+#         raise RuntimeError("Could not find Email ID / Username field.")
+#     email_box.fill(NAUKRI_EMAIL)
+
+#     # Password field
+#     password_selectors = [
+#         "input[name='passwordField']",
+#         "input[placeholder='Enter Password']",
+#         "input[type='password']"
+#     ]
+#     password_box = None
+#     for sel in password_selectors:
+#         loc = page.locator(sel)
+#         if loc.count() > 0:
+#             password_box = loc.first
+#             break
+#     if not password_box:
+#         screenshot(page, "password_field_not_found")
+#         raise RuntimeError("Could not find Password field.")
+#     password_box.fill(NAUKRI_PASSWORD)
+
+#     # Login button
+#     page.click("button[type='submit'], button:has-text('Login')")
+
+#     page.wait_for_load_state("domcontentloaded", timeout=20000)
+#     if "login" in page.url.lower():
+#         screenshot(page, "login_failed")
+#         raise RuntimeError("Login appears to have failed — check credentials or screenshot.")
+#     log.info("Login successful.")
 
 
 def toggle_summary(page):
