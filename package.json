@@ -17,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/SiddhantGupta988/databricks_repo/issues"
   },
-  "homepage": "https://github.com/SiddhantGupta988/databricks_repo#readme"
+  "homepage": "https://github.com/SiddhantGupta988/databricks_repo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.62.0"
+  }
 }
