@@ -80,7 +80,7 @@ def login(page):
 
     # Email field
     email_selectors = [
-        "input[name='username']",
+        "input[name='usernameField']",
         "input[placeholder='Enter Email ID / Username']",
         "input[type='text']"
     ]
@@ -97,7 +97,7 @@ def login(page):
 
     # Password field
     password_selectors = [
-        "input[name='password']",
+        "input[name='passwordField']",
         "input[placeholder='Enter Password']",
         "input[type='password']"
     ]
